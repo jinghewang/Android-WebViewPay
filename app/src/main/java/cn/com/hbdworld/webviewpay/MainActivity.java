@@ -1,12 +1,21 @@
 package cn.com.hbdworld.webviewpay;
 
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.drm.DrmStore;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -18,16 +27,17 @@ import com.alipay.sdk.app.H5PayCallback;
 import com.alipay.sdk.app.PayTask;
 import com.alipay.sdk.util.H5PayResultModel;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 
     private WebView webView = null;
     private EditText url = null;
-
-
     private EditText referer = null;
 
 
@@ -101,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         webView.requestFocusFromTouch();
 
         Button btn = (Button) this.findViewById(R.id.btn_click);
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 String turl =url.getText().toString();
@@ -112,34 +122,51 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btn2 = (Button) this.findViewById(R.id.btn_wx);
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //处理微信H5支付
-                String url = "weixin://wxpay/bizpayurl?pr=tXFsnPT";
-                //url.startsWith("weixin://wap/pay?")) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+        btn2.setOnClickListener(this);
+
+        btn2 = (Button) this.findViewById(R.id.btn_wx2);
+        btn2.setOnClickListener(this);
+
+        btn2 = (Button) this.findViewById(R.id.btn_ali);
+        btn2.setOnClickListener(this);
+
+        btn2 = (Button) this.findViewById(R.id.btn_ali2);
+        btn2.setOnClickListener(this);
+
+        btn2 = (Button) this.findViewById(R.id.btn_pay);
+        btn2.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        //openAliPay2Pay(ALIPAY_PERSON);
+        Button btn = (Button)v;
+        Toast.makeText(this,btn.getText(), Toast.LENGTH_LONG).show();
+        Intent intent = null;
+        switch (v.getId()) {
+
+            case R.id.btn_pay:
+                intent = new Intent(MainActivity.this,PayActivity.class);
                 startActivity(intent);
 
-                //String turl =url.getText().toString();
-                Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
-                //webView.loadUrl(turl,extraHeaders);
-            }
-        });
+                break;
 
+            case R.id.btn_wx:
 
-        Button btn3 = (Button) this.findViewById(R.id.btn_wx2);
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String turl =url.getText().toString();
-                Toast.makeText(MainActivity.this, turl, Toast.LENGTH_SHORT).show();
-                webView.loadUrl(turl,extraHeaders);
-            }
-        });
+                break;
+
+            case R.id.btn_wx2:
+                break;
+
+            default:
+
+                Toast.makeText(this, "default", Toast.LENGTH_LONG).show();
+                break;
+        }
     }
+
 
 
 
