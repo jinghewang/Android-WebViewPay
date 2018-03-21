@@ -127,15 +127,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         btn2 = (Button) this.findViewById(R.id.btn_wx2);
         btn2.setOnClickListener(this);
 
-        btn2 = (Button) this.findViewById(R.id.btn_ali);
-        btn2.setOnClickListener(this);
-
-        btn2 = (Button) this.findViewById(R.id.btn_ali2);
-        btn2.setOnClickListener(this);
-
         btn2 = (Button) this.findViewById(R.id.btn_pay);
         btn2.setOnClickListener(this);
-
 
     }
 

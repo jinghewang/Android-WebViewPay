@@ -22,7 +22,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
 
     public static final String ALIPAY_SHOP = "https://qr.alipay.com/stx05107r5oaa4fyofbkh24";//商户
-    public static final String ALIPAY_PERSON = "HTTPS://QR.ALIPAY.COM/FKX026955XFK2XIICJIC8F";//个人(支付宝里面我的二维码)
+    public static final String ALIPAY_PERSON = "HTTPS://QR.ALIPAY.COM/FKX06148QMZIJDXGPKXXE7";//个人(支付宝里面我的二维码)
     public static final String ALIPAY_PERSON_2_PAY = "HTTPS://QR.ALIPAY.COM/FKX01415BIHINQT6TRU53F";//个人(支付宝里面我的二维码,然后提示让用的收款码)
 
     @Override
@@ -42,6 +42,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
         btn = (Button) this.findViewById(R.id.btn_ali3);
         btn.setOnClickListener(this);
+
+        btn = (Button) this.findViewById(R.id.btn_ali_receive);
+        btn.setOnClickListener(this);
     }
 
 
@@ -60,6 +63,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         Toast.makeText(this,btn.getText(), Toast.LENGTH_LONG).show();
         Intent intent = null;
         String uri = null;
+        String qrcode = null;
+        String alipayqr = null;
+        String fullqr = null;
+
         switch (view.getId()) {
 
             case R.id.btn_ali:
@@ -78,18 +85,37 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.btn_ali3:
-                String qrcode = "https://www.baidu.com/";
+                qrcode = "https://www.baidu.com/";
                 try {
                     qrcode = URLEncoder.encode(qrcode, "utf-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
-                final String alipayqr = "alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + qrcode;
-                final String fullqr = alipayqr + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis();
+                alipayqr = "alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + qrcode;
+                fullqr = alipayqr + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis();
 
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullqr));
                 startActivity(intent);
+                break;
+
+
+            case R.id.btn_ali_receive://支付宝收款
+                //openAliPay2Pay(ALIPAY_PERSON);
+
+                qrcode = ALIPAY_PERSON;
+                try {
+                    qrcode = URLEncoder.encode(qrcode, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                alipayqr = "alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode=" + qrcode;
+                fullqr = alipayqr + "%3F_s%3Dweb-other&_t=" + System.currentTimeMillis();
+
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullqr));
+                startActivity(intent);
+
                 break;
 
             default:
