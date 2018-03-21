@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -25,16 +26,24 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     public static final String ALIPAY_PERSON = "HTTPS://QR.ALIPAY.COM/FKX06148QMZIJDXGPKXXE7";//个人(支付宝里面我的二维码)
     public static final String ALIPAY_PERSON_2_PAY = "HTTPS://QR.ALIPAY.COM/FKX01415BIHINQT6TRU53F";//个人(支付宝里面我的二维码,然后提示让用的收款码)
 
+
+    private EditText url = null;
+    private EditText referer = null;
+    private Button btnClick = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
-        //do sth
-        Button btn = (Button) this.findViewById(R.id.btn_click);
-        btn.setOnClickListener(this);
+        this.url = ((EditText) this.findViewById(R.id.url));
+        this.referer = (EditText) this.findViewById(R.id.referer);
 
-        btn = (Button) this.findViewById(R.id.btn_ali);
+        //do sth
+        btnClick = (Button) this.findViewById(R.id.btn_click);
+        btnClick.setOnClickListener(this);
+
+        Button btn = (Button) this.findViewById(R.id.btn_ali);
         btn.setOnClickListener(this);
 
         btn = (Button) this.findViewById(R.id.btn_ali2);
@@ -44,6 +53,15 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         btn.setOnClickListener(this);
 
         btn = (Button) this.findViewById(R.id.btn_ali_receive);
+        btn.setOnClickListener(this);
+
+        btn = (Button) this.findViewById(R.id.btn_ali_receive2);
+        btn.setOnClickListener(this);
+
+        btn = (Button) this.findViewById(R.id.btn_ali_cz);
+        btn.setOnClickListener(this);
+
+        btn = (Button) this.findViewById(R.id.btn_ali_zmxy);
         btn.setOnClickListener(this);
     }
 
@@ -68,6 +86,12 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         String fullqr = null;
 
         switch (view.getId()) {
+
+            case R.id.btn_click:
+                uri = this.url.getText().toString();
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
+                break;
 
             case R.id.btn_ali:
                 uri = "alipays://platformapi/startApp";
@@ -115,7 +139,21 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullqr));
                 startActivity(intent);
+                break;
 
+            case R.id.btn_ali_receive2://支付宝收款
+                this.url.setText("alipayqr://platformapi/startapp?saId=20000123");
+                this.btnClick.callOnClick();
+                break;
+
+            case R.id.btn_ali_cz://支付宝收款
+                this.url.setText("alipayqr://platformapi/startapp?saId=10000003");
+                this.btnClick.callOnClick();
+                break;
+
+            case R.id.btn_ali_zmxy://支付宝收款
+                this.url.setText("alipayqr://platformapi/startapp?saId=20000118");
+                this.btnClick.callOnClick();
                 break;
 
             default:

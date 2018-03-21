@@ -12,14 +12,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="referer:" />
+            android:text="url:" />
 
         <EditText
-            android:id="@+id/referer"
+            android:id="@+id/url"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="http://dev.hbdworld.com.cn" />
+            android:text="" />
 
     </LinearLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="支付宝-扫码" />
+                android:text="支付宝-扫一扫" />
 
 
             <Button
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="支付宝-打开指定页面" />
+                android:text="支付宝-打开页面" />
 
             <Button
                 android:id="@+id/btn_ali_receive"
@@ -68,7 +68,26 @@
                 android:layout_margin="5dp"
                 android:text="支付宝-收款" />
 
+            <Button
+                android:id="@+id/btn_ali_receive2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="支付宝-收款码" />
 
+            <Button
+                android:id="@+id/btn_ali_cz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="支付宝-支付宝手机充值" />
+
+            <Button
+                android:id="@+id/btn_ali_zmxy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="支付宝-支付宝芝麻信用" />
 
 
         </LinearLayout>
